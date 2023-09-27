@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { IconButton } from 'react-native-paper';
 
 const PersonagensListagem = ({ navigation }) => {
   const [personagens, setPersonagens] = useState([]);
@@ -28,7 +30,19 @@ const PersonagensListagem = ({ navigation }) => {
           >
             <Image source={{ uri: item.urlImagem }} style={styles.imagem} />
             <View style={styles.informacoes}>
-              <Text style={styles.nome}>{item.nome}</Text>
+              
+            <View>
+            <Text style={styles.nome}>{item.nome}</Text>
+            <View style={styles.bioIconeContainer}>
+  <IconButton
+    icon="eye"
+    color="transparent" 
+    size={25}
+    onPress={() => navigation.navigate('Detalhes', { id: item.id })}
+    style={styles.bioIcone}
+  />
+</View>
+              </View>
               <Text style={styles.distancia}>{item.endereco}</Text>
             </View>
           </TouchableOpacity>
@@ -37,6 +51,7 @@ const PersonagensListagem = ({ navigation }) => {
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   titulo: {
@@ -81,8 +96,14 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontWeight: "bold",
   },
+  bioIconeContainer: {
+    marginLeft: -6,
+  },
+  bioIcone: {
+    backgroundColor: 'black',
+  },
   distancia: {
-    fontSize: 12,
+    fontSize: 9,
     lineHeight: 19,
   },
 });
